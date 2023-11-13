@@ -4,7 +4,7 @@ module.exports = {
   getAllTodo: async (req, res) => {
     const user = req.user;
 
-    const todos = await Todo.find({ userId: user.Id }).populate("userId", ["_id", "name"]);
+    const todos = await Todo.find().populate("userId", ["name", "email"]);
 
     res.status(200).json({
       message: "berhasil mendapatkan data todo",
@@ -41,5 +41,20 @@ module.exports = {
     const todo = await Todo.deleteMany({ userId: id });
 
     res.status(200).json(todo);
+  },
+  editTodo: async (req, res) => {
+    try {
+      const todo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (todo) {
+        res.status(200).json({
+          message: "Berhasil mengedit data todo",
+          data: todo,
+        });
+      } else {
+        res.status(404).json({ message: "Todo not found" });
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   },
 };
