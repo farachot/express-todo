@@ -23,4 +23,5 @@ module.exports = {
       res.json(error.message);
     }
   },
+  regis: async (req, res) => {},
 };

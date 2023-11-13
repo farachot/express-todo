@@ -10,6 +10,13 @@ module.exports = {
     });
   },
 
+  getUserById: async (req, res) => {
+    const { id } = req.params;
+    const users = await User.findById(id);
+
+    res.json(users);
+  },
+
   createUsers: async (req, res) => {
     let data = req.body;
 
