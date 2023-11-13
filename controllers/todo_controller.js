@@ -4,9 +4,9 @@ module.exports = {
   getAllTodo: async (req, res) => {
     const user = req.user;
 
-    const todos = await Todo.find({ userId: user.id }).populate("userId", ["id", "name"]);
+    const todos = await Todo.find({ userId: user.id }).populate("userID", ["_id", "name"]);
 
-    res.json({
+    res.status(200).json({
       message: "berhasil mendapatkan data todo",
       data: todos,
     });
@@ -24,7 +24,7 @@ module.exports = {
 
     await Todo.create(data);
 
-    res.json({
+    res.status(200).json({
       message: "berhasil membuat data todo",
     });
   },
